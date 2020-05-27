@@ -1,54 +1,41 @@
 import React, {useState} from 'react';
 
 
-const App = () => {
-    const [count, setCount] = useState(0);
+const App = (props) => {
+    // //初期値の設定
+    // const initialStates = {
+    //     name: "",
+    //     price: 1000
+    // };
 
-    //setCountでcountの値が変化するとコンポーネントを再描画するように促す
-    const increment = () => setCount(count + 1);
-    const decrement = () => setCount(count - 1);
+    const [name, setName] = useState(props.name);
+    const [price, setPrice] = useState(props.price);
 
-    //setCountの引数に関数をぶち込んで値を更新することもできる（更新処理が複雑になる場合に使う）
-    const increment2 = () => setCount(previousCount => previousCount + 1);
-    const decrement2 = () => setCount(previousCount => previousCount - 1);
+    const reset = () => {
+        setPrice(props.price);
+        setName(props.name)
+    };
 
-    // const reset = () => setCount(previousCount => previousCount =  0);
-    const reset = () => setCount(0);
-
-
-    const multiple = () => setCount(count * 2);
-    const division = () => setCount(previousCount => {
-        return previousCount % 3 === 0 ? previousCount / 3 : previousCount
-    });
 
     return (
-
-
         <React.Fragment>
-            <div>count: {count}</div>
-            <div>
-                <button onClick={increment}>+1</button>
-                <button onClick={decrement}>-1</button>
-            </div>
-            <div>
-                <button onClick={increment2}>+1</button>
-                <button onClick={decrement2}>-1</button>
-            </div>
+            <p>現在の{name}は、{price}円です</p>
+            <button onClick={() => setPrice(price + 1)}>+1</button>
+            <button onClick={() => setPrice(price - 1)}>-1</button>
+            <button onClick={reset}>Reset</button>
+            {/*e.target.valueでonChaneが発生した時にinputに入力させている値を拾うことができる*/}
+            <input value={name} onChange={e => setName(e.target.value)}/>
 
-            <div>
-                <button onClick={reset}>Reset</button>
-            </div>
-
-            <div>
-                <button onClick={multiple}>x2</button>
-            </div>
-
-            <div>
-                <button onClick={division}>３の倍数の時だけ３で割る</button>
-            </div>
 
         </React.Fragment>
     );
 };
+
+App.defaultProps = {
+    //初期値の設定
+    name: "",
+    price: 1000
+};
+
 
 export default App;
