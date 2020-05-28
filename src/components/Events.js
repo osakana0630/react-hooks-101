@@ -1,11 +1,10 @@
 import Event from "./Event";
 import React, {useContext} from "react";
 import AppContext from "../contexts/AppContext";
-import userEvent from "@testing-library/user-event";
 
 
-const Events = ({state, dispatch}) => {
-const value = useContext(AppContext);
+const Events = () => {
+const { state } = useContext(AppContext);
 
     return (
 
@@ -23,7 +22,7 @@ const value = useContext(AppContext);
                 </tr>
                 </thead>
                 <tbody>
-                {state.map((event, index) => (<Event key={index} event={event} dispatch={dispatch}/>))}
+                {state.map((event, index) => (<Event key={index} event={event} />))}
                 </tbody>
             </table>
         </React.Fragment>

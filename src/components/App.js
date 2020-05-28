@@ -5,7 +5,6 @@ import Events from "./Events"
 import AppContext from "../contexts/AppContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-console.log({AppContext})
 
 // 状態遷移をさせたいタイミングでdispatchを呼んで、引数にアクション（typeという属性を渡してあげる）を渡してあげればいい
 //状態遷移させたいタイミングとは、イベント新規作成とイベント削除ボタンがクリックされた時。
@@ -17,11 +16,11 @@ const App = () => {
 
 
     return (
-        <AppContext.Provider value={"Hello Iam a Provider"}>
+        <AppContext.Provider value={{state, dispatch}}>
         <div className="container-fluid">
 
-            <EventForm state={state} dispatch={dispatch} />
-            <Events state={state} dispatch={dispatch} />
+            <EventForm />
+            <Events />
         </div>
             </AppContext.Provider>
 
