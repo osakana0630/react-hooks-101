@@ -1,16 +1,18 @@
-import React, {useContext ,useState} from "react";
+import React, {useContext, useState} from "react";
 import {
     CREATE_EVENT,
-    DELETE_ALL_EVENTS
+    DELETE_ALL_EVENTS,
+    ADD_OPERATION_LOG,
+    DELETE_ALL_OPERATION_LOGS
 } from "../actions";
 import AppContext from "../contexts/AppContext";
-
+import {timeCurrentIso8601} from "../utils";
 
 
 //App.js側でpropsとして、state,dispatchを受け取る
 const EventForm = () => {
 
-const{ state, dispatch} = useContext(AppContext)
+    const {state, dispatch} = useContext(AppContext)
     const [title, setTitle] = useState("");
     const [body, setBody] = useState("");
 
@@ -26,6 +28,12 @@ const{ state, dispatch} = useContext(AppContext)
             title,
             body
         });
+        //CREATE_EVENTがdispatchされた後にADD_OPERATION_LOGも続けてdispatchしてあげることで操作Logを残してあげる
+        dispatch({
+            type: ADD_OPERATION_LOG,
+            description: "イベントを作成しました。",
+            operatedAt: timeCurrentIso8601()
+        });
         //イベント作成後にフォームの中をお掃除
         setTitle("");
         setBody("");
@@ -35,7 +43,16 @@ const{ state, dispatch} = useContext(AppContext)
     const deleteAllEvents = (e) => {
         e.preventDefault();
         const result = window.confirm("全てのイベントを本当に削除しても良いですか？");
-        if (result) dispatch({type: DELETE_ALL_EVENTS })
+        if (result) {
+            dispatch({type: DELETE_ALL_EVENTS});
+
+            //削除操作Logを残してあげる
+            dispatch({
+                type: ADD_OPERATION_LOG,
+                description: "全てのイベントを削除しました。",
+                operatedAt: timeCurrentIso8601()
+            })
+        }
     };
 
     const unCreatable = title === "" || body === "";
