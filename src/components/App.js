@@ -6,9 +6,6 @@ import AppContext from "../contexts/AppContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-// 状態遷移をさせたいタイミングでdispatchを呼んで、引数にアクション（typeという属性を渡してあげる）を渡してあげればいい
-//状態遷移させたいタイミングとは、イベント新規作成とイベント削除ボタンがクリックされた時。
-
 
 const App = () => {
 
