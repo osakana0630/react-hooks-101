@@ -1,13 +1,18 @@
 import Event from "./Event";
-import React from "react";
-
+import React, {useContext} from "react";
+import AppContext from "../contexts/AppContext";
+import userEvent from "@testing-library/user-event";
 
 
 const Events = ({state, dispatch}) => {
+const value = useContext(AppContext);
 
     return (
 
+
         <React.Fragment>
+
+
             <h4>イベント一覧</h4>
             <table className="table table-hover">
                 <thead>
