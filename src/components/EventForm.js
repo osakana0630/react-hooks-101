@@ -1,4 +1,8 @@
 import React, {useState} from "react";
+import {
+    CREATE_EVENT,
+    DELETE_ALL_EVENTS
+} from "../actions";
 
 //App.js側でpropsとして、state,dispatchを受け取る
 const EventForm = ({state, dispatch}) => {
@@ -13,7 +17,7 @@ const EventForm = ({state, dispatch}) => {
         //画面のリロードを防ぐ（必要最低限のDOMだけをレンダーしたい）
         e.preventDefault();
         dispatch({
-            type: "CREATE_EVENT",
+            type: CREATE_EVENT,
             //titleとbodyはまだ作成されていない。フォームから入力されたものを吸い上げて、このコンポーネントに状態として持たせて、それぞれをdispatchの引数として渡してあげることが必要。
             //useStateで状態管理
             title,
@@ -28,7 +32,7 @@ const EventForm = ({state, dispatch}) => {
     const deleteAllEvents = (e) => {
         e.preventDefault();
         const result = window.confirm("全てのイベントを本当に削除しても良いですか？");
-        if (result) dispatch({type: "DELETE_EVENTS"})
+        if (result) dispatch({type: DELETE_ALL_EVENTS })
     };
 
     const unCreatable = title === "" || body === "";
