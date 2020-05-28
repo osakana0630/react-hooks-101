@@ -1,18 +1,3 @@
-
-// action = {
-//     type: "CREATE_EVENT",
-//     title: "2020年東京オリンピックのお知らせ",
-//     body: "2020年東京でオリンピックを開催します！"
-// }
-
-// state = [];
-// state = [
-//     {id: 1, title: "タイトル1", body: "ボディ1" },
-//     {id: 2, title: "タイトル2", body: "ボディ2" },
-//     {id: 3, title: "タイトル3", body: "ボディ3" },
-// ];
-
-
 const events = (state = [], action) => {
     switch(action.type) {
         case "CREATE_EVENT" :
@@ -22,7 +7,8 @@ const events = (state = [], action) => {
             return [...state, {id, ...event}];
             return state;
         case "DELETE_EVENT" :
-            return state;
+            //actionから渡ってくるidと一致しないものだけを抽出してあげて返してあげる
+            return state.filter(event => event.id !== action.id );
         case "DELETE_EVENTS" :
             return [];
 
