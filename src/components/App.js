@@ -19,7 +19,6 @@ const App = () => {
     const addEvent = e => {
         //画面のリロードを防ぐ（必要最低限のDOMだけをレンダーしたい）
         e.preventDefault();
-        console.log({title, body});
         dispatch({
             type: "CREATE_EVENT",
             //titleとbodyはまだ作成されていない。フォームから入力されたものを吸い上げて、このコンポーネントに状態として持たせて、それぞれをdispatchの引数として渡してあげることが必要。
@@ -33,6 +32,15 @@ const App = () => {
     };
 
     console.log({state});
+
+    const deleteAllEvents = (e) => {
+        e.preventDefault();
+        const result = window.confirm("全てのイベントを本当に削除しても良いですか？");
+        if (result) dispatch({type: "DELETE_EVENTS"})
+    };
+
+    const unCreatable = title === "" || body === "";
+
 
     return (
         <div className="container-fluid">
@@ -61,8 +69,9 @@ const App = () => {
                               }}
                     />
                 </div>
-                <button className="btn btn-primary" onClick={addEvent}>イベントを作成する</button>
-                <button className="btn btn-danger">全てのイベントを削除する</button>
+                <button className="btn btn-primary" onClick={addEvent} disabled={unCreatable}>イベントを作成する</button>
+                <button className="btn btn-danger" onClick={deleteAllEvents} disabled={state.length === 0}>全てのイベントを削除する</button>
+
             </form>
 
             <h4>イベント一覧</h4>
@@ -75,7 +84,7 @@ const App = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {state.map((event, index) => (<Event key={index} event={event} dispatch={dispatch} />))}
+                {state.map((event, index) => (<Event key={index} event={event} dispatch={dispatch}/>))}
                 </tbody>
             </table>
         </div>
