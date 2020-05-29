@@ -18,7 +18,7 @@ const Event = ({ event }) => {
             //reducer側がどのイベントを削除すればいいのか判別できるようにidを渡してあげ const result = window.confirm("全てのイベントを本当に削除しても良いですか？");
             const result = window.confirm(`イベント(id=${id})を本当に削除しても良いですか？`);
             if (result) {
-                dispatch({type: DELETE_EVENT, id})
+                dispatch({type: DELETE_EVENT, id});
 
                 dispatch({
                     type: ADD_OPERATION_LOG,
